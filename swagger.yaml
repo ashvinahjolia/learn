@@ -1,0 +1,202 @@
+swagger: "2.0"
+info:
+  description: "This is a simple api documentation."
+  version: "1.0.0"
+  title: "Swagger ACT"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: ""
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8000"
+basePath: "/api"
+
+tags:
+- name: "User"
+  description: "Operations about users"  
+   
+schemes:
+- "http"
+
+paths:
+  /users: 
+    get:
+      tags:
+      - "User"
+      summary: "List users"
+      description: "Get user list"
+      operationId: "listUser"
+      produces:
+      - "application/json"   
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/user"
+    post:
+      tags:
+      - "User"
+      summary: "add User"
+      description: "add user"
+      operationId: "AddUser"
+      produces:
+      - "application/json"
+      parameters: 
+        - in: "body"
+          name: "body"
+          description: "Add new User"
+          required: true
+          schema:
+            properties:
+              email:
+                type: "string"
+              first_name:
+                type: "string"
+              last_name:
+                type: "string"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Success"         
+  
+  /users/{id}: 
+    get:
+      tags:
+      - "User"
+      summary: "Get User Details by id"
+      description: "Get user details"
+      operationId: "UserDetails"
+      produces:
+      - "application/json"
+      parameters: 
+        - in: path
+          name: id  
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/userById"
+    put:
+      tags:
+      - "User"
+      summary: "update User Details by id"
+      description: "User update"
+      operationId: "UserUpdate"
+      produces:
+      - "application/json"
+      parameters: 
+        - in: path
+          name: id 
+        - in: "body"
+          name: "body"
+          description: "Update User"
+          required: true
+          schema:
+            properties:
+              first_name:
+                type: "string"
+              last_name:
+                type: "string"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Success"
+    delete:
+      tags:
+      - "User"
+      summary: "Delete User Details by id"
+      description: "delte user"
+      operationId: "UserDelete"
+      produces:
+      - "application/json"
+      parameters: 
+        - in: path
+          name: id  
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Success"        
+                
+         
+  
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+    
+security:
+  - api_key: []
+  
+definitions:
+  user:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      message:
+        type: "string"
+      result:
+        type: "object"
+        properties:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+              email:
+                type: "string" 
+              first_name:
+                type: "string"                  
+              last_name:
+                type: "string"                  
+    userById:
+      type: "object"
+      properties:
+        status:
+          type: "integer"
+        message:
+          type: "string"
+        result:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+            email:
+              type: "string" 
+            first_name:
+              type: "string"                  
+            last_name:
+              type: "string"
+
+  Errors:
+    type: "object"
+    properties:
+      status:
+        type: integer
+      error:
+        type: string
+  
+  Errors400:
+    type: "object"
+    properties:
+      status:
+        type: integer
+      error:
+        type: string
+      result:
+        type: string  
+
+Success:
+    type: "object"
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      result:
+        type: string  
+  

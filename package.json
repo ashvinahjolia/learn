@@ -1,0 +1,27 @@
+{
+  "name": "demo",
+  "version": "1.0",
+  "scripts": {
+    "start": "pm2 start process.json --env development",
+    "prod": "pm2 start process.json --env production"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.0",
+    "cookie-parser": "~1.4.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "glob": "~7.0.5",
+    "joi": "^14.3.0",
+    "lodash": "^4.17.11",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.4",
+    "sequelize": "^4.42.0",
+    "sequelize-slugify": "^0.6.1",
+    "swagger-ui-express": "^4.0.2",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0"
+  }
+}
