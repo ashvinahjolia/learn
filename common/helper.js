@@ -3,7 +3,17 @@
 /**
  * Module dependencies
  */
+const bcrypt = require('bcrypt-nodejs');
 
+/* For encrypt decrypt password */
+let encrypt = (password) => {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
+};
+
+// compare password
+let validPassword = (myPlaintextPassword, hash) => {
+  return bcrypt.compareSync(myPlaintextPassword, hash); // true
+};
 
 // Generate random string
 let randomString = (length, type = null) => {
@@ -79,6 +89,8 @@ let createPagination = (totalRecord, pageNumber, recordPerPage, data) => {
 
 // Export functions
 module.exports = {
+  encrypt,
+  validPassword,
   randomString,
   processError,
   reportError,

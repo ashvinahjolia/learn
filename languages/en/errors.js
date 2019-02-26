@@ -6,9 +6,9 @@
 var _ = require('lodash');
 
 /**
- * Extend user's controller
+ * Extend errors files
  */
 module.exports = _.extend(
   require('./errors/common'),
-  require('./errors/user')
+  require('./errors/auth')
 );

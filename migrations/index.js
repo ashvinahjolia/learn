@@ -35,8 +35,10 @@ function user() {
     {
       slug: 'admin-demo',
       email: 'admin@demo.com',
+      password: '$2a$08$zBvZ6blUcsLRvV7jAJM5vuM.LNm6GIWCeNhG0tJLQ4Q5U/GLgNXJG', // ashvin@123
       first_name: 'admin',
-      last_name: 'demo'
+      last_name: 'demo',
+      role: '1'
     }
   ]);
 }

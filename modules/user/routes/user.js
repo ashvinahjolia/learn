@@ -5,6 +5,7 @@
  */
 const express = require('express'),
   router = express.Router(),
+  { IsLogin } = require('../../../common/auth'),
   { validateBody, schemas } = require('../validate/index');
 
 // User Controller
@@ -13,6 +14,7 @@ let user = require('../controllers/userController');
 // Get user's list
 router.route('/')
   .get(
+    IsLogin,
     user.index
   );
 
