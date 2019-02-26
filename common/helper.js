@@ -3,7 +3,15 @@
 /**
  * Module dependencies
  */
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-nodejs'),
+      fs = require('fs'),
+      crypto = require('crypto');
+
+
+// Constant variables  
+const algorithm = 'aes-256-cbc';
+const key = '3zTvzr3p67VC61jmV54rIYu1545x4SMp';
+const iv = 'ldSgfIosvBfkLdgb';
 
 /* For encrypt decrypt password */
 let encrypt = (password) => {
@@ -87,6 +95,40 @@ let createPagination = (totalRecord, pageNumber, recordPerPage, data) => {
   return result;
 };
 
+let encryptFile = (text) => {
+  let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
+  let encrypted = cipher.update(text);
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
+  return encrypted.toString('hex');
+};
+
+let decryptFile = (text) => {
+  try {
+    let encryptedText = Buffer.from(text, 'hex');
+    let decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), iv);
+    let decrypted = decipher.update(encryptedText);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return decrypted.toString();
+  } catch (e) {
+    return null;
+  }
+};
+
+let moveImage = (target, tmpImageName, newImageName) => {
+  let tempPath = path.resolve('./public/tmp/' + tmpImageName);
+  let targetPath = path.resolve('./public/' + target + '/' + newImageName);
+
+  try {
+    fs.rename(tempPath, targetPath, function (err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 // Export functions
 module.exports = {
   encrypt,
@@ -95,6 +137,9 @@ module.exports = {
   processError,
   reportError,
   reportResult,
-  createPagination
+  createPagination,
+  encryptFile,
+  decryptFile,
+  moveImage
 };
 
